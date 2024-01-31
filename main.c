@@ -22,17 +22,30 @@ int main(int argc, char** argv)
   //#2: load image
   SDL_Surface* image_surface = load_image_surface(argv[1]);
   if(image_surface == NULL) return 1;
-  
-
+ 
   //#3: prepare window and renderer
   SDL_Window* window     = NULL;
   SDL_Renderer* renderer = NULL;
   if(init_window(&window,&renderer, image_surface->w,image_surface->h) != 0) return 1;
 
-  //#4: create drawable texture based on image surface
+  //#4: init rect represents cropping area
+
+  //make available change of alpha chanell
+  if(SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND) < 0)
+    {
+      printf("cropper error: %s\n",SDL_GetError());
+      return 1;
+    }
+  SDL_Rect rect = {0,0, image_surface->w,image_surface->h};
+  
+
+  
+  //#5: create drawable texture based on image surface
   SDL_Texture* texture = create_texture(&image_surface, &renderer);
   if(texture == NULL) return 1;
 
+
+  
   
   SDL_Event e;
   bool quit = false;
@@ -45,6 +58,10 @@ int main(int argc, char** argv)
 
     SDL_RenderClear(renderer);
     SDL_RenderCopy(renderer, texture, NULL, NULL);
+
+    SDL_SetRenderDrawColor(renderer,0,0,100,100);
+    SDL_RenderFillRect(renderer,&rect);
+    
     SDL_RenderPresent(renderer);    
   }
 
