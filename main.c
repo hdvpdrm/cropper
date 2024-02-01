@@ -7,8 +7,20 @@
 int init_window(SDL_Window** window,
 		SDL_Renderer** renderer,
 		int width, int height);
+
 SDL_Surface* load_image_surface(char* path);
 SDL_Texture* create_texture(SDL_Surface** image_surface,SDL_Renderer** renderer);
+
+void move_left_corner_down(SDL_Event* e, SDL_Rect* rect, int max_height);
+void move_left_corner_up(SDL_Event* e, SDL_Rect* rect);
+void move_left_corner_left(SDL_Event* e,SDL_Rect* rect);
+void move_left_corner_right(SDL_Event* e, SDL_Rect* rect, int max_width);
+
+void move_right_bottom_corner_down(SDL_Event* e, SDL_Rect* rect, int max_height);
+void move_right_bottom_corner_up(SDL_Event* e, SDL_Rect* rect);
+void move_right_bottom_corner_left(SDL_Event* e,SDL_Rect* rect);
+void move_right_bottom_corner_right(SDL_Event* e, SDL_Rect* rect, int max_width);
+
 int main(int argc, char** argv)
 {
   //#1: check args
@@ -45,6 +57,8 @@ int main(int argc, char** argv)
   if(texture == NULL) return 1;
 
 
+  int width = image_surface->w;
+  int height= image_surface->h;
   
   
   SDL_Event e;
@@ -54,6 +68,18 @@ int main(int argc, char** argv)
     if(SDL_WaitEvent(&e))
       {
 	if( e.type == SDL_QUIT ) quit = true;
+	if(e.type == SDL_KEYDOWN)
+	  {
+	    //move if it's required
+	    move_left_corner_down(&e,&rect,height);
+	    move_left_corner_up(&e,&rect);
+	    move_left_corner_left(&e,&rect);
+	    move_left_corner_right(&e,&rect,width);
+	    move_right_bottom_corner_up(&e,&rect);
+	    move_right_bottom_corner_down(&e,&rect,height);
+	    move_right_bottom_corner_left(&e,&rect);
+	    move_right_bottom_corner_right(&e,&rect,width);
+	  }
       }
 
     SDL_RenderClear(renderer);
@@ -132,4 +158,84 @@ SDL_Texture* create_texture(SDL_Surface** image_surface, SDL_Renderer** renderer
     }
   SDL_FreeSurface(*image_surface);
   return texture;
+}
+
+
+void move_left_corner_down(SDL_Event* e, SDL_Rect* rect, int max_height)
+{
+  if(e->key.keysym.sym == SDLK_s)
+    {
+      if(rect->y+1 < max_height)
+	rect->y+=1;
+    }
+}
+void move_left_corner_up(SDL_Event* e, SDL_Rect* rect)
+{
+  if(e->key.keysym.sym == SDLK_w)
+    {
+      if(rect->y-1 > 0)
+	{
+	  rect->y-=1;
+	}
+    }
+}
+void move_left_corner_left(SDL_Event* e,SDL_Rect* rect)
+{
+  if(e->key.keysym.sym == SDLK_a)
+    {
+      if(rect->x-1 > 0)
+	{
+	  rect->x-=1;
+	}
+    }
+}
+void move_left_corner_right(SDL_Event* e, SDL_Rect* rect, int max_width)
+{
+  if(e->key.keysym.sym == SDLK_d)
+    {
+      if(rect->x +1 < max_width)
+	{
+	  rect->x += 1;
+	}
+    }
+}
+
+
+void move_right_bottom_corner_down(SDL_Event* e, SDL_Rect* rect, int max_height)
+{
+  if(e->key.keysym.sym == SDLK_DOWN)
+    {
+      if(rect->h+1 < max_height)
+	rect->h+=1;
+    }
+}
+void move_right_bottom_corner_up(SDL_Event* e, SDL_Rect* rect)
+{
+  if(e->key.keysym.sym == SDLK_UP)
+    {
+      if(rect->h-1 > 0)
+	{
+	  rect->h-=1;
+	}
+    }
+}
+void move_right_bottom_corner_left(SDL_Event* e,SDL_Rect* rect)
+{
+  if(e->key.keysym.sym == SDLK_LEFT)
+    {
+      if(rect->w-1 > 0)
+	{
+	  rect->w-=1;
+	}
+    }
+}
+void move_right_bottom_corner_right(SDL_Event* e, SDL_Rect* rect, int max_width)
+{
+  if(e->key.keysym.sym == SDLK_RIGHT)
+    {
+      if(rect->w +1 < max_width)
+	{
+	  rect->w += 1;
+	}
+    }
 }
