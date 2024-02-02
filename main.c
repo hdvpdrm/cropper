@@ -9,13 +9,21 @@ int init_window(SDL_Window** window,
 		SDL_Renderer** renderer,
 		int width, int height);
 void draw_cropper(bool* draw_cropper, SDL_Renderer** renderer, SDL_Rect* rect);
+void print_help(void);
 int main(int argc, char** argv)
 {
   //#1: check args
+  if(argc == 2 && strcmp(argv[1], "--help") == 0)
+    {
+      print_help();
+      return 0;
+    }
+  
   if(argc != 3)
     {
       printf("%s\n","cropper error: incorrect number of arguments");
       printf("%s\n","cropper usage example: ./cropper input.png output.png");
+      print_help();
       return 1;
     }
 
@@ -170,4 +178,20 @@ void draw_cropper(bool* draw_cropper, SDL_Renderer** renderer, SDL_Rect* rect)
 	SDL_SetRenderDrawColor(*renderer,0,0,0,0);
 	SDL_RenderFillRect(*renderer,rect);
       }
+}
+void print_help(void)
+{
+  printf("%s\n",
+	"cropper: minimal tool to crop png/jpg images.              \n\
+         Usage example: ./cropper input_image.png output_image.png  \n\
+         \n							    \n\
+         Hot keys:                                                  \n\
+         W,A,S,D - to change left high edge's position              \n\
+         Arrows  - to change right bottom edge's position           \n\
+         Double SPACE - to crop image, save and quit                \n\
+         X - increase movement velocity                             \n\
+         Z - decrease movement velocity                             \n\
+         Note:                                                      \n\
+         After you hit first SPACE you can press ESCAPE to continue editing. \
+	");
 }
