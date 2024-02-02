@@ -1,80 +1,80 @@
 #include"actions.h"
 
-void move_left_corner_down(SDL_Event* e, SDL_Rect* rect, int max_height)
+void move_left_corner_down(SDL_Event* e, SDL_Rect* rect, int max_height,  int cropping_step)
 {
   if(e->key.keysym.sym == SDLK_s)
     {
-      if(rect->y+1 < max_height)
-	rect->y+=1;
+      if(rect->y+cropping_step < max_height)
+	rect->y+=cropping_step;
     }
 }
-void move_left_corner_up(SDL_Event* e, SDL_Rect* rect)
+void move_left_corner_up(SDL_Event* e, SDL_Rect* rect,  int cropping_step)
 {
   if(e->key.keysym.sym == SDLK_w)
     {
-      if(rect->y-1 > 0)
+      if(rect->y-cropping_step > 0)
 	{
-	  rect->y-=1;
+	  rect->y-=cropping_step;
 	}
     }
 }
-void move_left_corner_left(SDL_Event* e,SDL_Rect* rect)
+void move_left_corner_left(SDL_Event* e,SDL_Rect* rect,  int cropping_step)
 {
   if(e->key.keysym.sym == SDLK_a)
     {
-      if(rect->x-1 > 0)
+      if(rect->x-cropping_step > 0)
 	{
-	  rect->x-=1;
+	  rect->x-=cropping_step;
 	}
     }
 }
-void move_left_corner_right(SDL_Event* e, SDL_Rect* rect, int max_width)
+void move_left_corner_right(SDL_Event* e, SDL_Rect* rect, int max_width,  int cropping_step)
 {
   if(e->key.keysym.sym == SDLK_d)
     {
-      if(rect->x +1 < max_width)
+      if(rect->x +cropping_step < max_width)
 	{
-	  rect->x += 1;
+	  rect->x += cropping_step;
 	}
     }
 }
 
 
-void move_right_bottom_corner_down(SDL_Event* e, SDL_Rect* rect, int max_height)
+void move_right_bottom_corner_down(SDL_Event* e, SDL_Rect* rect, int max_height,  int cropping_step)
 {
   if(e->key.keysym.sym == SDLK_DOWN)
     {
-      if(rect->h+1 < max_height)
-	rect->h+=1;
+      if(rect->h+cropping_step < max_height)
+	rect->h+=cropping_step;
     }
 }
-void move_right_bottom_corner_up(SDL_Event* e, SDL_Rect* rect)
+void move_right_bottom_corner_up(SDL_Event* e, SDL_Rect* rect,  int cropping_step)
 {
   if(e->key.keysym.sym == SDLK_UP)
     {
-      if(rect->h-1 > 0)
+      if(rect->h-cropping_step > 0)
 	{
-	  rect->h-=1;
+	  rect->h-=cropping_step;
 	}
     }
 }
-void move_right_bottom_corner_left(SDL_Event* e,SDL_Rect* rect)
+void move_right_bottom_corner_left(SDL_Event* e,SDL_Rect* rect,  int cropping_step)
 {
   if(e->key.keysym.sym == SDLK_LEFT)
     {
-      if(rect->w-1 > 0)
+      if(rect->w-cropping_step > 0)
 	{
-	  rect->w-=1;
+	  rect->w-=cropping_step;
 	}
     }
 }
-void move_right_bottom_corner_right(SDL_Event* e, SDL_Rect* rect, int max_width)
+void move_right_bottom_corner_right(SDL_Event* e, SDL_Rect* rect, int max_width,  int cropping_step)
 {
   if(e->key.keysym.sym == SDLK_RIGHT)
     {
-      if(rect->w +1 < max_width)
+      if(rect->w +cropping_step < max_width)
 	{
-	  rect->w += 1;
+	  rect->w += cropping_step;
 	}
     }
 }
@@ -88,4 +88,15 @@ void undo(SDL_Event* e, bool* should_draw_cropper)
 {
   if(e->key.keysym.sym == SDLK_ESCAPE)
     *should_draw_cropper = true;
+}
+
+extern void increase_step(SDL_Event* e, int* step)
+{
+  if(e->key.keysym.sym == SDLK_x)
+    if(*step != 100)*step+=1;
+}
+extern void decrease_step(SDL_Event* e, int* step)
+{
+  if(e->key.keysym.sym == SDLK_z)
+    if(*step != 0)*step-=1;
 }

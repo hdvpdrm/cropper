@@ -64,6 +64,7 @@ int main(int argc, char** argv)
   
 
   bool should_draw_cropper = true;
+  int cropping_step = 1;
   SDL_Event e;
   bool quit = false;
   while(!quit)
@@ -78,14 +79,14 @@ int main(int argc, char** argv)
 	    if(should_draw_cropper)
 	      {
 		//move if it's required
-		move_left_corner_down(&e,&rect,height);
-		move_left_corner_up(&e,&rect);
-		move_left_corner_left(&e,&rect);
-		move_left_corner_right(&e,&rect,width);
-		move_right_bottom_corner_up(&e,&rect);
-		move_right_bottom_corner_down(&e,&rect,height);
-		move_right_bottom_corner_left(&e,&rect);
-		move_right_bottom_corner_right(&e,&rect,width);
+		move_left_corner_down(&e,&rect,height,cropping_step);
+		move_left_corner_up(&e,&rect,cropping_step);
+		move_left_corner_left(&e,&rect,cropping_step);
+		move_left_corner_right(&e,&rect,width,cropping_step);
+		move_right_bottom_corner_up(&e,&rect,cropping_step);
+		move_right_bottom_corner_down(&e,&rect,height,cropping_step);
+		move_right_bottom_corner_left(&e,&rect,cropping_step);
+		move_right_bottom_corner_right(&e,&rect,width,cropping_step);
 	      }
 	  }
 	if(e.type == SDL_KEYUP)
@@ -98,6 +99,13 @@ int main(int argc, char** argv)
 		quit = true;
 	      }
 
+	    if(should_draw_cropper)
+	      {
+		//check and confirm action
+		increase_step(&e,&cropping_step);
+		decrease_step(&e,&cropping_step);
+	      }
+	    
 	    //check should return to cropping mode.
 	    undo(&e, &should_draw_cropper);
 	  }
