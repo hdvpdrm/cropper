@@ -19,6 +19,13 @@ int main(int argc, char** argv)
       return 1;
     }
 
+  int output_image_type = get_output_file_type(argv[2]);
+  if(output_image_type == -1)
+    {
+      printf("%s\n","cropper error: incorrect output type of file! It should be png or jpg.");
+      return 1;
+    }
+  
   //check file types
   if(is_file_png(argv[1]) == 0 &&
      is_file_jpg(argv[1]) == 0)
@@ -87,7 +94,7 @@ int main(int argc, char** argv)
 	    if(should_save(&e)      == 1 && should_draw_cropper) should_draw_cropper = false;
 	    else if(should_save(&e) == 1 && !should_draw_cropper)
 	      {
-		save_image(argv[2],&renderer,&texture,&rect);
+		save_image(argv[2],&renderer,&texture,&rect,output_image_type);
 		quit = true;
 	      }
 
