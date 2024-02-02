@@ -27,4 +27,17 @@ SDL_Texture* create_texture(SDL_Surface** image_surface, SDL_Renderer** renderer
   SDL_FreeSurface(*image_surface);
   return texture;
 }
+int save_image(const char* file_name, SDL_Renderer** renderer,SDL_Texture** texture, SDL_Rect* area)
+{
+  SDL_Texture* target = SDL_GetRenderTarget(*renderer);
+  SDL_SetRenderTarget(*renderer, *texture);
 
+  int width, height;
+  SDL_QueryTexture(*texture, NULL, NULL, &width, &height);
+  SDL_Surface* surface = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
+
+  SDL_RenderReadPixels(*renderer, area, surface->format->format, surface->pixels, surface->pitch);
+  IMG_SavePNG(surface, file_name);
+  SDL_FreeSurface(surface);
+  SDL_SetRenderTarget(*renderer, target);
+}
