@@ -7,7 +7,7 @@
 
 extern SDL_Surface* load_image_surface(char* path);
 extern SDL_Texture* create_texture(SDL_Surface** image_surface,SDL_Renderer** renderer);
-extern int save_image(const char* file_name,
+extern void save_image(const char* file_name,
 		      SDL_Renderer** renderer,
 		      SDL_Texture** texture,
 		      SDL_Rect* area,

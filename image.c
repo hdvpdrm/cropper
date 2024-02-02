@@ -8,7 +8,7 @@ SDL_Surface* load_image_surface(char* path)
     SDL_Surface* surface = IMG_Load(path);
     if(surface == NULL )
     {
-        printf( "cropper error: %s\n", path, IMG_GetError() );
+        printf( "cropper error: %s %s\n", path, IMG_GetError() );
 	return NULL;
     }
     return surface;
@@ -26,7 +26,7 @@ SDL_Texture* create_texture(SDL_Surface** image_surface, SDL_Renderer** renderer
   SDL_FreeSurface(*image_surface);
   return texture;
 }
-int save_image(const char* file_name,
+void save_image(const char* file_name,
 	       SDL_Renderer** renderer,
 	       SDL_Texture** texture,
 	       SDL_Rect* area,
