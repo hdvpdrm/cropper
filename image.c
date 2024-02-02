@@ -32,8 +32,8 @@ int save_image(const char* file_name, SDL_Renderer** renderer,SDL_Texture** text
   SDL_Texture* target = SDL_GetRenderTarget(*renderer);
   SDL_SetRenderTarget(*renderer, *texture);
 
-  int width, height;
-  SDL_QueryTexture(*texture, NULL, NULL, &width, &height);
+  int width  = area->w;
+  int height = area->h; 
   SDL_Surface* surface = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
 
   SDL_RenderReadPixels(*renderer, area, surface->format->format, surface->pixels, surface->pitch);
