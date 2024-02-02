@@ -33,3 +33,19 @@ int is_file_jpg(const char* path)
 
   return 0;
 }
+int get_output_file_type(const char* path)
+{
+  char buf[3];
+  int pos = 2;
+  for(int i = strlen(path)-1;i > 0;--i)
+    {
+      if(path[i] == '.') break;
+      buf[pos] = path[i];
+      pos--;
+    }
+
+  if(strcmp(buf,"png") == 0) return 1;
+  else if(strcmp(buf,"jpg") == 0) return 0;
+
+  return -1;
+}

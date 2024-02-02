@@ -6,5 +6,6 @@
 
 extern int is_file_png(const char* path);
 extern int is_file_jpg(const char* path);
+extern int get_output_file_type(const char* path);
 
 #endif
