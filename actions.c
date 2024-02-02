@@ -78,3 +78,9 @@ void move_right_bottom_corner_right(SDL_Event* e, SDL_Rect* rect, int max_width)
 	}
     }
 }
+int should_save(SDL_Event* e)
+{
+  if(e->key.keysym.sym == SDLK_SPACE) return 1;
+
+  return 0;
+}

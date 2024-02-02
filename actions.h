@@ -12,4 +12,6 @@ extern void move_right_bottom_corner_down(SDL_Event* e, SDL_Rect* rect, int max_
 extern void move_right_bottom_corner_up(SDL_Event* e, SDL_Rect* rect);
 extern void move_right_bottom_corner_left(SDL_Event* e,SDL_Rect* rect);
 extern void move_right_bottom_corner_right(SDL_Event* e, SDL_Rect* rect, int max_width);
+
+int should_save(SDL_Event* e);
 #endif 
