@@ -38,6 +38,7 @@ int main(int argc, char** argv)
   SDL_Rect rect = {0,0, image_surface->w,image_surface->h};
   
   //#5: create drawable texture based on image surface
+  //Note: there is no need to destroy surface, because it's done by create_texture function
   SDL_Texture* texture = create_texture(&image_surface, &renderer);
   if(texture == NULL) return 1;
 
@@ -56,6 +57,8 @@ int main(int argc, char** argv)
 	if( e.type == SDL_QUIT ) quit = true;
 	if(e.type == SDL_KEYDOWN)
 	  {
+
+	    //if should draw cropper, then user is allowed to change cropping area
 	    if(should_draw_cropper)
 	      {
 		//move if it's required
@@ -71,12 +74,16 @@ int main(int argc, char** argv)
 	  }
 	if(e.type == SDL_KEYUP)
 	  {
+	    //press double SPACE to save cropped image
 	    if(should_save(&e)      == 1 && should_draw_cropper) should_draw_cropper = false;
 	    else if(should_save(&e) == 1 && !should_draw_cropper)
 	      {
 		save_image(argv[2],&renderer,&texture,&rect);
 		quit = true;
 	      }
+
+	    //check should return to cropping mode.
+	    undo(&e, &should_draw_cropper);
 	  }
       }
 
