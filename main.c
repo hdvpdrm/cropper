@@ -3,6 +3,7 @@
 #include<stdbool.h>
 #include"actions.h"
 #include"image.h"
+#include"file_type_checker.h"
 
 int init_window(SDL_Window** window,
 		SDL_Renderer** renderer,
@@ -15,6 +16,14 @@ int main(int argc, char** argv)
     {
       printf("%s\n","cropper error: incorrect number of arguments");
       printf("%s\n","cropper usage example: ./cropper input.png output.png");
+      return 1;
+    }
+
+  //check file types
+  if(is_file_png(argv[1]) == 0 &&
+     is_file_jpg(argv[1]) == 0)
+    {
+      printf("%s\n","cropper error: incorrect input type of file! It should be png or jpg.");
       return 1;
     }
 
