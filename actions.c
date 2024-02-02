@@ -84,3 +84,8 @@ int should_save(SDL_Event* e)
 
   return 0;
 }
+void undo(SDL_Event* e, bool* should_draw_cropper)
+{
+  if(e->key.keysym.sym == SDLK_ESCAPE)
+    *should_draw_cropper = true;
+}
