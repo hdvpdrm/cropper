@@ -68,7 +68,9 @@ int main(int argc, char** argv)
 		move_right_bottom_corner_left(&e,&rect);
 		move_right_bottom_corner_right(&e,&rect,width);
 	      }
-
+	  }
+	if(e.type == SDL_KEYUP)
+	  {
 	    if(should_save(&e)      == 1 && should_draw_cropper) should_draw_cropper = false;
 	    else if(should_save(&e) == 1 && !should_draw_cropper)
 	      {
