@@ -182,7 +182,7 @@ void draw_cropper(bool* draw_cropper, SDL_Renderer** renderer, SDL_Rect* rect)
 void print_help(void)
 {
   printf("%s\n",
-	"cropper: minimal tool to crop png/jpg images.              \n\
+	"cropper: minimalist tool to crop png/jpg images.           \n\
          Usage example: ./cropper input_image.png output_image.png  \n\
          \n							    \n\
          Hot keys:                                                  \n\
