@@ -33,4 +33,4 @@ X - increase movement velocity<br>
 Z - decrease movement velocity<br>
 
 ### Note:<br> 
-After you hit first SPACE you can press ESCAPE to continue editing. <br
+After you hit first SPACE you can press ESCAPE to continue editing.
