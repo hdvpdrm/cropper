@@ -42,6 +42,8 @@ int get_output_file_type(const char* path)
       if(path[i] == '.') break;
       buf[pos] = path[i];
       pos--;
+      if(pos <= 0)
+	break;
     }
 
   if(strcmp(buf,"png") == 0) return 1;
