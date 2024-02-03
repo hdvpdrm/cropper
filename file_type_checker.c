@@ -39,11 +39,10 @@ int get_output_file_type(const char* path)
   int pos = 2;
   for(int i = strlen(path)-1;i > 0;--i)
     {
-      if(path[i] == '.') break;
+      if(path[i] == '.' || pos < 0) break;
+      
       buf[pos] = path[i];
       pos--;
-      if(pos <= 0)
-	break;
     }
 
   if(strcmp(buf,"png") == 0) return 1;
